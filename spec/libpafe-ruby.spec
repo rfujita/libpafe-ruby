@@ -30,14 +30,6 @@ Ruby bindings for the libpafe library
 %patch0 -p1 -b .fix-each-to-foreach
 
 %build
-mv ChangeLog ChangeLog.orig
-iconv -f euc-jp -t utf-8 ChangeLog.orig > ChangeLog
-mv README README.orig
-iconv -f euc-jp -t utf-8 README.orig > README
-
-mv sample/suica.rb sample/suica.rb.orig
-iconv -f euc-jp -t utf-8 sample/suica.rb.orig > sample/suica.rb
-
 ruby extconf.rb
 make 
 

@@ -1,37 +1,38 @@
-libpafe-ruby version 0.0.1
+libpafe-ruby version 0.0.7
 
-�� libpafe �� Ruby ������Ѥ��뤿��γ�ĥ�饤�֥��Ǥ���
+・ libpafe を Ruby から使用するための拡張ライブラリです。
 
-�� ư���ǧ�ʤɤ��Խ�ʬ�ʾ��֤ʤΤǡ��Ƽ�����Ǥ�Ǥ����Ѥ���������
+・ 動作確認などは不十分な状態なので、各自の責任でご利用ください。
 
-���침Ƿ (ZXB01226 at nifty.ne.jp)
+伊東宏之 (ZXB01226 at nifty.ne.jp)（オリジナルソースコード）
+藤田稜 (rfujita at redhat.com)（RPM化及びバージョン0.0.7をベースにしたgit化）
 
 
-������ѥ���ȥ��󥹥ȡ���
+●コンパイルとインストール
 
 ruby extconf.rb
 make
 make install
 
 
-���Ȥ���
+●使い方
 
 require 'pasori'
 
-�ǥ饤�֥�꤬���ѤǤ���褦�ˤʤ�ޤ���
+でライブラリが利用できるようになります。
 
 Pasori
 
-���饹�᥽�å�
+クラスメソッド
 
   Pasori.new
   Pasori.open
   Pasori.open {|pasori| ...}
 
-  PaSoRi �򥪡��ץ󤷤ޤ���open() �ϥ֥��å�����ꤹ�뤳�Ȥ��Ǥ��ޤ���
-  �֥��å��ν�λ�ȤȤ�� PaSoRi �ϥ�����������ޤ���
+  PaSoRi をオープンします。open() はブロックを指定することができます。
+  ブロックの終了とともに PaSoRi はクローズされます。
 
-�᥽�å�
+メソッド
 
   close
   send(str)
@@ -40,41 +41,41 @@ Pasori
   read
   set_timeout(timeout)
 
-  ���줾�� libpafe ���б�����ؿ���Ʊ����ǽ�Ǥ���libpafe �� README ��
-  �Ȥ��Ƥ���������
+  それぞれ libpafe の対応する関数と同じ機能です。libpafe の README を参
+  照してください。
 
 
   type
 
-  PaSoRi �Υ����� (TYPE_S310, TYPE_S320, TYPE_S330) ���֤��ޤ���
+  PaSoRi のタイプ (TYPE_S310, TYPE_S320, TYPE_S330) を返します。
 
 
   felica_polling([system[, rfu[, timeslot]]])
   felica_polling([system[, rfu[, timeslot]]]) {|felica| ...}
 
-  libpafe �б�����ؿ���Ʊ����ǽ�Ǥ�����rfu, timeslot ����ά���줿�Ȥ�
-  �Ϥ��줾�� 0 ��system ����ά���줿�Ȥ��� Felica::POLLING_ANY �����ꤵ
-  �줿���Ȥˤʤ�ޤ���system �ˤ� Felica::POLLING_ANY,
-  Felica::POLLING_SUICA, Felica::POLLING_EDY ����ѤǤ��ޤ�������������
-  �� Felica ���饹�Υ��󥹥��󥹤��֤���ޤ������Ԥ������� nil ���֤�
-  �ޤ���
-  �֥��å���Ϳ����줿��硢�֥��å��ν�λ�ȤȤ�� felica �ϥ���������
-  ��ޤ���
+  libpafe 対応する関数と同じ機能ですが、rfu, timeslot が省略されたとき
+  はそれぞれ 0 、system が省略されたときは Felica::POLLING_ANY が指定さ
+  れたことになります。system には Felica::POLLING_ANY,
+  Felica::POLLING_SUICA, Felica::POLLING_EDY を使用できます。成功した場
+  合 Felica クラスのインスタンスが返されます。失敗した場合は nil が返り
+  ます。
+  ブロックが与えられた場合、ブロックの終了とともに felica はクローズさ
+  れます。
 
 
 Felica
 
-���饹�᥽�å�
+クラスメソッド
 
   new(pasori, system, rfu, timeslot)
   polling(pasori, system, rfu, timeslot)
   polling(pasori, system, rfu, timeslot) {|felica| ...}
 
-  Pasori ���饹�� felica_polling �᥽�åɤ�Ʊ���Ǥ�����new �ϥ֥��å���
-  ���Ƥޤ���
+  Pasori クラスの felica_polling メソッドと同等ですが、new はブロックを
+  持てません。
 
 
-�᥽�å�
+メソッド
 
   idm
   pmm
@@ -83,53 +84,53 @@ Felica
   request_system
   search_service
 
-  ���줾�� libpafe ���б�����ؿ���Ʊ����ǽ�Ǥ���libpafe �� README ��
-  �Ȥ��Ƥ���������
+  それぞれ libpafe の対応する関数と同じ機能です。libpafe の README を参
+  照してください。
 
 
   close
 
-  felica ���Ĥ��ޤ���
+  felica を閉じます。
 
 
   read(service, addr[, mode])
 
-  libpafe �� felica_read_sigle ��Ʊ����ǽ�Ǥ�����mode ����ά���줿���
-  �� 0 �����ꤵ�줿���Ȥˤʤ�ޤ���
+  libpafe の felica_read_sigle と同じ機能ですが、mode が省略された場合
+  は 0 が指定されたことになります。
 
 
   foreach(service[, mode]) {|data| }
 
-  �֥��å��ֹ�� 0 ������ơ��ɹ��˼��Ԥ���ޤ� felica_read_sigle ��
-  �¹Ԥ��ޤ��������ǡ������Ф��ƥ֥��å���ɾ�����ޤ���mode ����ά���줿
-  ���� 0 �����ꤵ�줿���Ȥˤʤ�ޤ���
+  ブロック番号を 0 から初めて、読込に失敗するまで felica_read_sigle を
+  実行します。応答データに対してブロックを評価します。mode が省略された
+  場合は 0 が指定されたことになります。
 
 
   service
   area
 
-  ���줾�� FelicaArea ���饹�Υ��󥹥��󥹤��Ǽ���������֤�ޤ���
+  それぞれ FelicaArea クラスのインスタンスを格納した配列が返ります。
 
 
 FelicaArea
 
-���饹�᥽�å�
+クラスメソッド
 
   new(attr, code, bin)
 
 
-�᥽�å�
+メソッド
 
   attr
   code
   bin
 
-  ���줾�� libpafe �� felica_area ��¤�Τˤ�����Ʊ̾�����Ǥ��б����ޤ���
+  それぞれ libpafe の felica_area 構造体における同名の要素に対応します。
 
   to_i
 
-  bin ��Ʊ���Υ᥽�åɤǤ���
+  bin と同等のメソッドです。
 
   protected?
 
-  attr �β��� 1Bit �� 0 �ʤ� true 1  �ʤ� false ���֤�ޤ���
+  attr の下位 1Bit が 0 なら true 1  なら false が返ります。
