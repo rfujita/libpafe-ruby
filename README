@@ -1,0 +1,135 @@
+libpafe-ruby version 0.0.1
+
+・ libpafe を Ruby から使用するための拡張ライブラリです。
+
+・ 動作確認などは不十分な状態なので、各自の責任でご利用ください。
+
+伊東宏之 (ZXB01226 at nifty.ne.jp)
+
+
+●コンパイルとインストール
+
+ruby extconf.rb
+make
+make install
+
+
+●使い方
+
+require 'pasori'
+
+でライブラリが利用できるようになります。
+
+Pasori
+
+クラスメソッド
+
+  Pasori.new
+  Pasori.open
+  Pasori.open {|pasori| ...}
+
+  PaSoRi をオープンします。open() はブロックを指定することができます。
+  ブロックの終了とともに PaSoRi はクローズされます。
+
+メソッド
+
+  close
+  send(str)
+  recv
+  write(str)
+  read
+  set_timeout(timeout)
+
+  それぞれ libpafe の対応する関数と同じ機能です。libpafe の README を参
+  照してください。
+
+
+  type
+
+  PaSoRi のタイプ (TYPE_S310, TYPE_S320, TYPE_S330) を返します。
+
+
+  felica_polling([system[, rfu[, timeslot]]])
+  felica_polling([system[, rfu[, timeslot]]]) {|felica| ...}
+
+  libpafe 対応する関数と同じ機能ですが、rfu, timeslot が省略されたとき
+  はそれぞれ 0 、system が省略されたときは Felica::POLLING_ANY が指定さ
+  れたことになります。system には Felica::POLLING_ANY,
+  Felica::POLLING_SUICA, Felica::POLLING_EDY を使用できます。成功した場
+  合 Felica クラスのインスタンスが返されます。失敗した場合は nil が返り
+  ます。
+  ブロックが与えられた場合、ブロックの終了とともに felica はクローズさ
+  れます。
+
+
+Felica
+
+クラスメソッド
+
+  new(pasori, system, rfu, timeslot)
+  polling(pasori, system, rfu, timeslot)
+  polling(pasori, system, rfu, timeslot) {|felica| ...}
+
+  Pasori クラスの felica_polling メソッドと同等ですが、new はブロックを
+  持てません。
+
+
+メソッド
+
+  idm
+  pmm
+  request_service(list)
+  request_response
+  request_system
+  search_service
+
+  それぞれ libpafe の対応する関数と同じ機能です。libpafe の README を参
+  照してください。
+
+
+  close
+
+  felica を閉じます。
+
+
+  read(service, addr[, mode])
+
+  libpafe の felica_read_sigle と同じ機能ですが、mode が省略された場合
+  は 0 が指定されたことになります。
+
+
+  foreach(service[, mode]) {|data| }
+
+  ブロック番号を 0 から初めて、読込に失敗するまで felica_read_sigle を
+  実行します。応答データに対してブロックを評価します。mode が省略された
+  場合は 0 が指定されたことになります。
+
+
+  service
+  area
+
+  それぞれ FelicaArea クラスのインスタンスを格納した配列が返ります。
+
+
+FelicaArea
+
+クラスメソッド
+
+  new(attr, code, bin)
+
+
+メソッド
+
+  attr
+  code
+  bin
+
+  それぞれ libpafe の felica_area 構造体における同名の要素に対応します。
+
+  to_i
+
+  bin と同等のメソッドです。
+
+  protected?
+
+  attr の下位 1Bit が 0 なら true 1  なら false が返ります。

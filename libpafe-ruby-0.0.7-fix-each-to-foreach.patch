@@ -1,0 +1,11 @@
+--- libpafe-ruby-0.0.7/sample/suica.rb_orig	2009-10-31 17:58:31.000000000 +0900
++++ libpafe-ruby-0.0.7/sample/suica.rb	2011-08-04 03:53:25.782771873 +0900
+@@ -59,7 +59,7 @@ class Suica
+   end
+ 
+   def read_in_out(&b)
+-    @felica.each(Felica::SERVICE_SUICA_IN_OUT) {|l|
++    @felica.foreach(Felica::SERVICE_SUICA_IN_OUT) {|l|
+       yield(l)
+     }
+   end
