@@ -1,3 +1,16 @@
+2011-08-12  Ito Hiroyuki  <ZXB01226 at nifty.com>
+
+	* sample/suica.rb (Suica): update "Type1", "Type2" and "Type3".
+	(Suica::read_in_out): fix method (each to foreach).
+	(Suica::parse_history): fix argument of "String#unpack".
+
+	* pasori.c (rb_pasori_new, rb_felica_new): type of the variable
+	"cname" is "const char *".
+
+	* extconf.rb: don't link libusb.
+
+	* pasori.c (rb_pasori_type): use "pasori_type()".
+
 2009-10-09  Ito Hiroyuki  <ZXB01226 at nifty.com>
 
 	* pasori.c (Init_pasori): add method "type".

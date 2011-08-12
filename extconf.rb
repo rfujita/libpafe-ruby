@@ -4,6 +4,5 @@ require 'mkmf'
 $CFLAGS = "-Wall -O2"
 
 have_header("libpafe/libpafe.h")
-have_library("usb", "usb_init")
 have_library("pafe", "pasori_open")
 create_makefile("pasori")

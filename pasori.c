@@ -105,7 +105,7 @@ static VALUE
 rb_pasori_new(int argc, VALUE *argv, VALUE klass)
 {
   if (rb_block_given_p()) {
-    char *cname = rb_class2name(klass);
+    const char *cname = rb_class2name(klass);
 
     rb_warn("%s::new() does not take block; use %s::open() instead",
 	    cname, cname);
@@ -277,7 +277,7 @@ rb_pasori_type(VALUE obj_pasori)
 
   p = get_cpasori(obj_pasori);
 
-  return INT2FIX(p->type);
+  return INT2FIX(pasori_type(p));
 }
 
 void 
@@ -337,7 +337,7 @@ static VALUE
 rb_felica_new(int argc, VALUE *argv, VALUE klass)
 {
   if (rb_block_given_p()) {
-    char *cname = rb_class2name(klass);
+    const char *cname = rb_class2name(klass);
 
     rb_warn("%s::new() does not take block; use %s::open() instead",
 	    cname, cname);
