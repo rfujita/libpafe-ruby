@@ -126,11 +126,11 @@ i = 0
 suica.read_in_out {|l|
   d = l.unpack('nCCCCnnvN')
 
-  y = (d[6] >> 9) + 2000
-  m = (d[6] >> 5) & 0x0f
-  dd = d[6] & 0x1f
+  y = (d[5] >> 9) + 2000
+  m = (d[5] >> 5) & 0x0f
+  dd = d[5] & 0x1f
 
-  printf("%s %02X-%02X %04d/%02d/%02d %02x:%02x %5d\n", Type3[d[0]], d[2], d[3], y, m, dd, d[7] >> 8, d[7] & 0xff, d[8])
+  printf("%s %02X-%02X %04d/%02d/%02d %02x:%02x %5d\n", Type3[d[0]], d[2], d[3], y, m, dd, d[6] >> 8, d[6] & 0xff, d[7])
 }
 
 suica.each {|h|

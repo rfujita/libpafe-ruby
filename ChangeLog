@@ -1,3 +1,7 @@
+2011-08-14  Hiroyuki Ito  <ZXB01226 at nifty.com>
+
+	* sample/suica.rb (Suica#parse_history): fix index of the array.
+
 2011-08-12  Ito Hiroyuki  <ZXB01226 at nifty.com>
 
 	* sample/suica.rb (Suica): update "Type1", "Type2" and "Type3".
